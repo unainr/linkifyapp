@@ -22,6 +22,7 @@ import { ToastAction } from "../toast";
 import { Loader2, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 // ✅ Define Form Schema
 const formSchema = z.object({
 	username: z.string().min(3, "Username must be at least 3 characters."),
@@ -140,11 +141,13 @@ const handleFileUpload = (uploadedFiles: File[]) => {
                 <FormItem>
                   <FormLabel >Username</FormLabel>
                   <FormControl>
+                  <Suspense>
                     <Input
                       placeholder="Enter username"
                       {...field}
                       className=" rounded-md focus:ring-2 focus:ring-blue-500"
-                    />
+                      />
+                      </Suspense>
                   </FormControl>
                   <FormMessage className="text-red-500" />
                 </FormItem>
