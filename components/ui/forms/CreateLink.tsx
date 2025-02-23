@@ -134,6 +134,7 @@ const handleFileUpload = (uploadedFiles: File[]) => {
             className="space-y-6 w-full max-w-md"
           >
             {/* Username */}
+            <Suspense>
             <FormField
               control={form.control}
               name="username"
@@ -141,18 +142,17 @@ const handleFileUpload = (uploadedFiles: File[]) => {
                 <FormItem>
                   <FormLabel >Username</FormLabel>
                   <FormControl>
-                  <Suspense>
                     <Input
                       placeholder="Enter username"
                       {...field}
                       className=" rounded-md focus:ring-2 focus:ring-blue-500"
-                      />
-                      </Suspense>
+                    />
                   </FormControl>
                   <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />
+            </Suspense>
 
             {/* Description */}
             <FormField
