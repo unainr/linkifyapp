@@ -1,10 +1,11 @@
+import SuspenseWrapper from '@/components/SuspenseWrapper'
 import CreateLink from '@/components/ui/forms/CreateLink'
 import { Metadata } from 'next'
 import React from 'react'
 
 const Generate = () => {
   return (
-    <><CreateLink/></>
+    <><SuspenseWrapper/></>
   )
 }
 

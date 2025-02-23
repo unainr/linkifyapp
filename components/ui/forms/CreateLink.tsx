@@ -22,7 +22,6 @@ import { ToastAction } from "../toast";
 import { Loader2, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
 // ✅ Define Form Schema
 const formSchema = z.object({
 	username: z.string().min(3, "Username must be at least 3 characters."),
@@ -44,7 +43,6 @@ const CreateLink = () => {
 	const { toast } = useToast();
 	const [files, setFiles] = useState<File[]>([]);
 	const searchParams = useSearchParams()
-  const usernameFromParams = searchParams.get("username");
   
   
 
@@ -53,7 +51,7 @@ const CreateLink = () => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			username: usernameFromParams || "",
+			username: searchParams.get("username") || "",
 			description: "",
 			sociallinks: [{ name: "", value: "" }], // ✅ Default structure
 			file: undefined,
@@ -134,7 +132,6 @@ const handleFileUpload = (uploadedFiles: File[]) => {
             className="space-y-6 w-full max-w-md"
           >
             {/* Username */}
-            <Suspense>
             <FormField
               control={form.control}
               name="username"
@@ -152,7 +149,6 @@ const handleFileUpload = (uploadedFiles: File[]) => {
                 </FormItem>
               )}
             />
-            </Suspense>
 
             {/* Description */}
             <FormField
