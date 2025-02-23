@@ -105,7 +105,7 @@ const handleFileUpload = (uploadedFiles: File[]) => {
 				toast({ title: "Link created successfully!" });
 				form.reset();
 				setFiles([]);
-				router.push(`/generate/${values.username}`);
+				router.push(`/${values.username}`);
 			} else {
 				toast({ title: "Failed to create link", description: response.error });
 			}
