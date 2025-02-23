@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -43,7 +43,7 @@ const CreateLink = () => {
 	const { toast } = useToast();
 	const [files, setFiles] = useState<File[]>([]);
 	const searchParams = useSearchParams()
-  const usernameFormParams = searchParams.get("username") || ""
+  const usernameFromParams = searchParams.get("username");
   
   
 
@@ -52,17 +52,12 @@ const CreateLink = () => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			username: usernameFormParams,
+			username: usernameFromParams || "",
 			description: "",
 			sociallinks: [{ name: "", value: "" }], // ✅ Default structure
 			file: undefined,
 		},
 	});
-
-  useEffect(() => {
-		// Update the form value when usernameFromParams changes
-		form.setValue("username", usernameFormParams);
-	}, [usernameFormParams, form]);
 
 	// 🎯 Use Field Array for Dynamic Social Links
 	const { fields, append, remove } = useFieldArray({

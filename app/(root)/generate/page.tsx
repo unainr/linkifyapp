@@ -4,7 +4,7 @@ import React from 'react'
 
 const Generate = () => {
   return (
-    <div><CreateLink/></div>
+    <><CreateLink/></>
   )
 }
 
