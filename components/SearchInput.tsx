@@ -25,7 +25,7 @@ const SearchInput = () => {
 				variant={"destructive"}
 				 className="bg-red-500 hover:bg-red-600"
 				>
-				Claim Your Link
+				Claim Your Handle
 			</Button>
 		</>
 	);
