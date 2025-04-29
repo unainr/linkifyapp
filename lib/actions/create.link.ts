@@ -52,11 +52,13 @@ export async function createLink(formData: FormData) {
             file
         );
 
-        // Generate image preview URL
-        const imageUrl = storage.getFilePreview(
-            appwriteConfig.imagebucketId,
-            imageUpload.$id
-        );
+        // IMPORTANT: Instead of using SDK methods that require transformations,
+        // construct the direct URL to the original file
+        const imageId = imageUpload.$id;
+        const projectId = appwriteConfig.projectId; // Make sure this is available in your config
+        
+        // Construct direct URL to the file (no transformations)
+        const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${appwriteConfig.imagebucketId}/files/${imageId}/view?project=${projectId}`;
 
         // Save document to database
         const document = await databases.createDocument(
@@ -66,7 +68,7 @@ export async function createLink(formData: FormData) {
             {
                 username,
                 description,
-                imageId: imageUpload.$id,
+                imageId,
                 sociallinks,
                 imageUrl,
             }
@@ -74,6 +76,7 @@ export async function createLink(formData: FormData) {
 
         return { success: true, data: document };
     } catch (error: any) {
+        console.error("Error creating link:", error);
         return { success: false, error: error.message || "Failed to create link." };
     }
 }
